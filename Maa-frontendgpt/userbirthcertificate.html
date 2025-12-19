@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Birth Certificate Entry — Pehchan Dhantewada</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body onload="checkLogin()">
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <nav class="sidebar" aria-label="Main navigation">
+      <div class="brand">
+	  <img src="images/logo.png" alt="Logo" class="sidebar-logo">
+	  <span>Pehchan Dhantewada</span></div>
+
+     <a class="nav-link " href="dashboard.html">Home</a>
+       
+	  <a class="nav-link active" href="userbirthcertificate.html">Birth Certificate Entry</a>
+	  <a class="nav-link " href="useraadhar.html">Aadhaar Entry</a>
+	   <a class="nav-link" href="usercastecertificate.html">Caste Certificate Entry</a>
+	  <a class="nav-link" href="userrationcard.html"> Ration card Entry</a>
+	  <a class="nav-link" href="userayushmancard.html"> Ayushman card Entry</a>
+      
+      <button class="nav-logout" onclick="logout()">Logout</button>
+    </nav>
+ 
+    <!-- MAIN CONTENT -->
+    <main class="content">
+
+      <!-- TOP BAR -->
+      <header class="topbar">
+        <h2>Birth Certificate Entry</h2>
+      </header>
+
+      <!-- SEARCH BAR SECTION -->
+      <section class="card" style="margin-top:20px;">
+        <h3>Search by RCH ID</h3>
+        <div class="search-bar-container">
+          <input 
+            type="text" 
+            id="rchSearchInput" 
+            class="search-input" 
+            placeholder="Enter RCH ID..."
+          />
+          <button class="btn-primary" onclick="searchRCH()">Search</button>
+          <button class="btn-ghost" onclick="resetSearchRCH()">Reset</button>
+        </div>
+      </section>
+
+      <!-- DISPLAY RECORD SECTION -->
+      <section class="card" style="margin-top:20px;">
+        <h3>Fetched Record</h3>
+        <div id="rchRecordBox" class="table-placeholder muted">
+          No record fetched yet.
+        </div>
+      </section>
+
+      <!-- FORM CARD - ENTER BIRTH CERTIFICATE DETAILS -->
+      <section class="card form-card" style="margin-top:20px;">
+        <form id="birthForm" onsubmit="return false;">
+
+          <div class="form-row">
+            <div class="col">
+              <label for="bcNumber">Birth Certificate Number</label>
+              <input id="bcNumber" required placeholder="Enter Birth Certificate No">
+            </div>
+          </div>
+
+          <div class="form-actions" style="margin-top:20px">
+            <button class="btn-primary" onclick="saveBirthCertificate()">Save</button>
+            <button class="btn-ghost" onclick="history.back()">Back</button>
+          </div>
+
+          <p id="birthMsg" class="muted small" style="margin-top:10px"></p>
+
+        </form>
+      </section>
+
+    </main>
+
+  </div>
+
+  <script src="birthcertificate.js"></script>
+</body>
+</html>
