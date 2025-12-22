@@ -389,7 +389,7 @@ namespace pehchan.Controllers
             return Ok(count);
         }
 
-        // 18 list by not birthcertificate enterd
+        // 18 list by not CasteCertificate enterd
         [HttpGet("GetAllWithCasteCertificate")]
         [Authorize(Roles = "ADMIN,USER")]
         public IActionResult GetAllWithCasteCertificate()
@@ -401,7 +401,7 @@ namespace pehchan.Controllers
 
             return Ok(data);
         }
-        // 19 list by not birthcertificate enterd
+        // 19 list by not CasteCertificate enterd
         [HttpGet("GetAllWithoutCasteCertificate")]
         [Authorize(Roles = "ADMIN,USER")]
         public IActionResult GetAllWithoutCasteCertificate()
@@ -413,7 +413,7 @@ namespace pehchan.Controllers
 
             return Ok(data);
         }
-        // 20 count birthcertificate enterd
+        // 20 count CasteCertificate enterd
         [HttpGet("CountCasteCertificateEntered")]
         [Authorize(Roles = "ADMIN,USER")]
         public IActionResult CountCasteCertificateEntered()
@@ -422,7 +422,7 @@ namespace pehchan.Controllers
             return Ok(count);
         }
 
-        // 21 list by not birthcertificate enterd
+        // 21 list by not AadharCard enterd
         [HttpGet("GetAllWithAadharCard")]
         [Authorize(Roles = "ADMIN,USER")]
         public IActionResult GetAllWithAadharCard()
@@ -434,7 +434,7 @@ namespace pehchan.Controllers
 
             return Ok(data);
         }
-        // 22 list by not birthcertificate enterd
+        // 22 list by not AadharCard enterd
         [HttpGet("GetAllWithoutAadharCard")]
         [Authorize(Roles = "ADMIN,USER")]
         public IActionResult GetAllWithoutAadharCard()
@@ -446,16 +446,16 @@ namespace pehchan.Controllers
 
             return Ok(data);
         }
-        // 23 count birthcertificate enterd
+        // 23 count AadharCard enterd
         [HttpGet("CountAadharCardEntered")]
         [Authorize(Roles = "ADMIN,USER")]
         public IActionResult CountAadharCardEntered()
         {
-            int count = _service.CountBirthCertificateEntered();
+            int count = _service.CountAadharCardEntered();
             return Ok(count);
         }
 
-        // 24 list by not birthcertificate enterd
+        // 24 list by not RationCard enterd
         [HttpGet("GetAllWithRationCard")]
         [Authorize(Roles = "ADMIN,USER")]
         public IActionResult GetAllWithRationCard()
@@ -467,7 +467,7 @@ namespace pehchan.Controllers
 
             return Ok(data);
         }
-        // 25 list by not birthcertificate enterd
+        // 25 list by not RationCard enterd
         [HttpGet("GetAllWithoutRationCard")]
         [Authorize(Roles = "ADMIN,USER")]
         public IActionResult GetAllWithoutRationCard()
@@ -479,7 +479,7 @@ namespace pehchan.Controllers
 
             return Ok(data);
         }
-        // 26 count birthcertificate enterd
+        // 26 count RationCard enterd
         [HttpGet("CountRationCardEntered")]
         [Authorize(Roles = "ADMIN,USER")]
         public IActionResult CountRationCardEntered()
@@ -488,7 +488,7 @@ namespace pehchan.Controllers
             return Ok(count);
         }
 
-        // 27 list by not birthcertificate enterd
+        // 27 list by not AyushmanCard enterd
         [HttpGet("GetAllWithAyushmanCard")]
         [Authorize(Roles = "ADMIN,USER")]
         public IActionResult GetAllWithAyushmanCard()
@@ -500,7 +500,7 @@ namespace pehchan.Controllers
 
             return Ok(data);
         }
-        // 28 list by not birthcertificate enterd
+        // 28 list by not AyushmanCard enterd
         [HttpGet("GetAllWithoutAyushmanCard")]
         [Authorize(Roles = "ADMIN,USER")]
         public IActionResult GetAllWithoutAyushmanCard()
@@ -512,7 +512,7 @@ namespace pehchan.Controllers
 
             return Ok(data);
         }
-        // 29 count birthcertificate enterd
+        // 29 count AyushmanCard enterd
         [HttpGet("CountAyushmanCardEntered")]
         [Authorize(Roles = "ADMIN,USER")]
         public IActionResult CountAyushmanCardEntered()
