@@ -715,3 +715,62 @@ async function loadWithoutAyushmanCardTable() {
         childrenList.innerHTML = `<div class="muted">Error fetching Birth Certificate records.</div>`;
     }
 }
+// ===================== EXPORT TO CSV =====================
+function exportData() {
+    // Export filtered data if available, otherwise all data
+    const dataToExport = filteredData.length ? filteredData : childrenData;
+
+    if (!dataToExport || dataToExport.length === 0) {
+        alert("No data available to export.");
+        return;
+    }
+
+    // Define column headers & mapping
+    const columns = [
+        { header: "S.No", key: "sno" },
+        { header: "District", key: "district" },
+        { header: "Health Block", key: "healthBlock" },
+        { header: "Health Sub Facility", key: "healthSubfacility" },
+        { header: "Village", key: "village" },
+        { header: "RCH ID", key: "rchid" },
+        { header: "Mother Name", key: "motherName" },
+        { header: "Husband Name", key: "husbandName" },
+        { header: "Mobile Of", key: "mobileof" },
+        { header: "Mobile No", key: "mobileNo" },
+        { header: "Age (Registration)", key: "ageasperRegistration" },
+        { header: "Address", key: "address" },
+        { header: "Delivery", key: "delivery" },
+        { header: "Maternal Death", key: "maternalDeath" },
+        { header: "Delivery Place", key: "deliveryPlace" },
+        { header: "Delivery Place Name", key: "deliveryPlaceName" }
+    ];
+
+    // Create CSV content
+    let csvContent = "";
+
+    // Header row
+    csvContent += columns.map(col => `"${col.header}"`).join(",") + "\n";
+
+    // Data rows
+    dataToExport.forEach(row => {
+        const rowData = columns.map(col => {
+            let value = row[col.key] ?? "";
+            value = value.toString().replace(/"/g, '""'); // escape quotes
+            return `"${value}"`;
+        }).join(",");
+        csvContent += rowData + "\n";
+    });
+
+    // Create file & trigger download
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `ProjectMaa_Children_${new Date().toISOString().slice(0,10)}.csv`;
+    document.body.appendChild(link);
+    link.click();
+
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+}
