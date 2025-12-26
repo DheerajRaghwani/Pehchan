@@ -8,7 +8,9 @@
 </head>
 <body onload="checkLogin()">
   <div class="layout">
+    <!-- Sidebar -->
     <nav class="sidebar" aria-label="Main navigation">
+      <button class="sidebar-close" onclick="closeSidebar()">✕</button>
       <div class="brand">
 	  
       <img src="images/logo.png" alt="Logo" class="sidebar-logo">
@@ -33,13 +35,16 @@
       </div>
     </nav>
 
+    <!-- Top Bar -->
     <main class="content">
       <header class="topbar">
+        <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
         <h2>Child Entry</h2>
       </header>
 
-      <section class="card form-card">
-  <form id="childForm" onsubmit="return false;">
+    <!-- SEARCH BAR SECTION -->
+    <section class="card form-card">
+    <form id="childForm" onsubmit="return false;">
 
     <div class="form-row">
       <div class="col">
@@ -137,21 +142,37 @@
         <input id="DeliveryPlaceName" type="text" placeholder="Hospital/Place Name">
       </div>
     
-
-     
-
     <div class="form-actions" style="margin-top:14px">
       <button class="btn-primary" onclick="saveChild()">Save Child</button>
       <button type="button" class="btn-ghost" onclick="resetChildForm()">Reset</button>
 	  <p id="childMsg" class="muted small" style="margin-top:10px"></p>
     </div>
-</div>
+    </div>
     
-  </form>
-</section>
+    </form>
+    </section>
 
     </main>
-  </div>
+    </div>
+    <div class="sidebar-overlay" onclick="closeSidebar()"></div>
+
+        <script>
+        function toggleSidebar() {
+          document.querySelector('.sidebar').classList.add('open');
+          document.querySelector('.sidebar-overlay').classList.add('show');
+          document.body.classList.add('sidebar-open');
+        }
+
+        function closeSidebar() {
+          document.querySelector('.sidebar').classList.remove('open');
+          document.querySelector('.sidebar-overlay').classList.remove('show');
+          document.body.classList.remove('sidebar-open');
+        }
+
+        document.querySelectorAll('.nav-link').forEach(link => {
+          link.addEventListener('click', closeSidebar);
+        });
+      </script>
 
   <script src="childentry.js"></script>
 </body>

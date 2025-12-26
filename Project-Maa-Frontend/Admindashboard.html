@@ -12,6 +12,7 @@
 
       <!-- SIDEBAR -->
       <nav class="sidebar" aria-label="Main navigation">
+        <button class="sidebar-close" onclick="closeSidebar()">✕</button>
         <div class="brand">
           <img src="images/logo.png" alt="Logo" class="sidebar-logo">
           <span>Project Maa</span>
@@ -40,7 +41,8 @@
       <main class="content">
 
         <!-- TOP BAR -->
-        <header class="topbar; ">
+        <header class="topbar">
+          <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
           <h2>Dashboard</h2>
         </header>
 
@@ -135,13 +137,9 @@
     </div>
 
   </div>
-
-
-
-
-
-
-    <section class="card" style="text-align:center;margin-top:20px; padding:20px;">
+  
+<!-- Filter Section -->
+  <section class="card" style="text-align:center;margin-top:20px; padding:20px;">
           <h3>Filters</h3>
 
           <div class="grid" style="margin-top:15px; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:15px;">
@@ -156,34 +154,31 @@
 			  />
 			</div>
 
-
-
-
-            <div>
-            <label class="muted">Block</label>
-            <select id="block" class="input-select">
-              <option value="">Select Block</option>
-              <option value="AARNG">AARNG (100)</option>
-              <option value="ABHANPUR">ABHANPUR (101)</option>
-              <option value="DHARSEEVA">DHARSEEVA (102)</option>
-              <option value="TILDA">TILDA (104)</option>
-            </select>
-            </div>
+      <div>
+        <label class="muted">Block</label>
+          <select id="block" class="input-select">
+            <option value="">Select Block</option>
+            <option value="AARNG">AARNG (100)</option>
+            <option value="ABHANPUR">ABHANPUR (101)</option>
+            <option value="DHARSEEVA">DHARSEEVA (102)</option>
+            <option value="TILDA">TILDA (104)</option>
+          </select>
+      </div>
 
 
           </div>
         </section>
 
-        <section class="card" 
-    style="
-      margin-top:20px; 
-      padding:20px; 
-      width:260px; 
-      margin-left:auto; 
-      margin-right:auto; 
-      text-align:center;
-    "
-  >
+    <section class="card" 
+      style="
+        margin-top:20px; 
+        padding:20px; 
+        width:260px; 
+        margin-left:auto; 
+        margin-right:auto; 
+        text-align:center;
+      "
+    >
     <h3 style="text-align:center; margin-bottom:10px;">Total Record</h3>
 
     <div 
@@ -200,30 +195,62 @@
           text-align:center; 
           border-radius:10px; 
           box-shadow:0 2px 6px rgba(0,0,0,0.1);
-        "
-      >
+        ">
         <h3 id="totalrecord"></h3>
         <p class="muted"></p>
       </article>
     </div>
-  </section>
+    </section>
 
-        <!-- LIST -->
-        <section style="margin-top:20px">
-          <div class="card">
-            <h3>View All</h3>
-            <div id="childrenList" class="table-placeholder muted"></div>
-        <div class="pagination">
-          <button id="prevBtn">Prev</button>
-          <span id="pageNumber">Page 1</span>
-          <button id="nextBtn">Next</button>
-          </div>
-          </div>
-        </section>
+    <!-- View All -->
+    <section style="margin-top:20px">
+    <div class="card">
+
+    <!-- HEADER WITH EXPORT BUTTON -->
+  <!--  <div style="display:flex; justify-content:space-between; align-items:center;">
+      <h3 style="margin:0;">View All</h3>
+      <button 
+        class="btn-primary"
+        onclick="exportData()"
+        style="padding:6px 14px; font-size:14px;"
+      >
+        Export
+      </button>
+    </div>
+-->
+    <div id="childrenList" class="table-placeholder muted"></div>
+
+    <div class="pagination">
+      <button id="prevBtn">Prev</button>
+      <span id="pageNumber">Page 1</span>
+      <button id="nextBtn">Next</button>
+    </div>
+
+  </div>
+</section>
+
 
       </main>
     </div>
 
+    <div class="sidebar-overlay" onclick="closeSidebar()"></div>
+      <script>
+        function toggleSidebar() {
+          document.querySelector('.sidebar').classList.add('open');
+          document.querySelector('.sidebar-overlay').classList.add('show');
+          document.body.classList.add('sidebar-open');
+        }
+
+        function closeSidebar() {
+          document.querySelector('.sidebar').classList.remove('open');
+          document.querySelector('.sidebar-overlay').classList.remove('show');
+          document.body.classList.remove('sidebar-open');
+        }
+
+        document.querySelectorAll('.nav-link').forEach(link => {
+          link.addEventListener('click', closeSidebar);
+        });
+      </script>
     
 
     <script src="Admindashboard.js"></script>
