@@ -1,0 +1,78 @@
+services:
+  # MySQL Database Service
+  mysql:
+    image: mysql:8.0
+    container_name: pehchan_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: penchan
+      MYSQL_USER: pehchan_user
+      MYSQL_PASSWORD: pehchan_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./penchan_backup.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - pehchan_network
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "localhost",
+          "-u",
+          "root",
+          "-prootpassword",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # .NET Backend API Service
+  backend:
+    build:
+      context: ./pehchan
+      dockerfile: Dockerfile
+    container_name: pehchan_backend
+    restart: unless-stopped
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__DefaultConnection=server=mysql;port=3306;user=pehchan_user;password=pehchan_password;database=penchan
+    ports:
+      - "5001:80"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - pehchan_network
+    healthcheck:
+      test: ["CMD-SHELL", "exit 0"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Frontend Static File Server (Simple HTTP Server)
+  frontend:
+    image: nginx:alpine
+    container_name: pehchan_frontend
+    restart: unless-stopped
+    ports:
+      - "3072:80"
+    volumes:
+      - ./Project-Maa-Frontend:/usr/share/nginx/html:ro
+    networks:
+      - pehchan_network
+
+networks:
+  pehchan_network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+    driver: local

@@ -2,46 +2,47 @@
 // Aadhaar Entry JS
 // ===============================
 
-const apiBase = "https://localhost:7003/api/Childrecord";
+const apiBase = "https://pehchanapi.rdmp.in/api/Childrecord";
 let currentRCHID = null; // store RCH ID from fetched record
 
 // ------------------------------------------
 // 1️⃣ SEARCH BY BIRTH CERTIFICATE NUMBER
 // ------------------------------------------
 async function searchBC() {
-    const bc = document.getElementById("bcSearchInput").value.trim();
-    const box = document.getElementById("bcRecordBox");
-    const msg = document.getElementById("aadharMsg");
+	const bc = document.getElementById("bcSearchInput").value.trim();
+	const box = document.getElementById("bcRecordBox");
+	const msg = document.getElementById("aadharMsg");
 
-    msg.textContent = "";
-    box.innerHTML = "<p class='muted'>Searching...</p>";
+	msg.textContent = "";
+	box.innerHTML = "<p class='muted'>Searching...</p>";
 
-    if (!bc) {
-        box.innerHTML = "<p class='muted'>Please enter Birth Certificate Number.</p>";
-        return;
-    }
+	if (!bc) {
+		box.innerHTML =
+			"<p class='muted'>Please enter Birth Certificate Number.</p>";
+		return;
+	}
 
-    try {
-        const token = localStorage.getItem("jwtToken");
+	try {
+		const token = localStorage.getItem("jwtToken");
 
-        const response = await fetch(`${apiBase}/GetByBirthCert/${bc}`, {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${token}`,
-                "Content-Type": "application/json"
-            }
-        });
+		const response = await fetch(`${apiBase}/GetByBirthCert/${bc}`, {
+			method: "GET",
+			headers: {
+				Authorization: `Bearer ${token}`,
+				"Content-Type": "application/json",
+			},
+		});
 
-        if (!response.ok) {
-            box.innerHTML = "<p class='muted'>No record found.</p>";
-            return;
-        }
+		if (!response.ok) {
+			box.innerHTML = "<p class='muted'>No record found.</p>";
+			return;
+		}
 
-        const data = await response.json();
-        currentRCHID = data.rchid; // <-- store RCHID for update
+		const data = await response.json();
+		currentRCHID = data.rchid; // <-- store RCHID for update
 
-        // ------ SHOW RECORD IN TABLE ------
-        box.innerHTML = `
+		// ------ SHOW RECORD IN TABLE ------
+		box.innerHTML = `
               <table class="full-width-table">
   <tr>
     <th>District</th><td>${data.district}</td>
@@ -74,101 +75,92 @@ async function searchBC() {
    
 </table>
         `;
-
-    } catch (err) {
-        console.error(err);
-        box.innerHTML = "<p class='muted'>Error fetching record.</p>";
-    }
+	} catch (err) {
+		console.error(err);
+		box.innerHTML = "<p class='muted'>Error fetching record.</p>";
+	}
 }
-
 
 // ------------------------------------------
 // 2️⃣ RESET SEARCH BOX
 // ------------------------------------------
 function resetSearchBC() {
-    document.getElementById("bcSearchInput").value = "";
-    document.getElementById("bcRecordBox").innerHTML = "No record fetched yet.";
-    document.getElementById("aadharMsg").textContent = "";
-    currentRCHID = null;
+	document.getElementById("bcSearchInput").value = "";
+	document.getElementById("bcRecordBox").innerHTML = "No record fetched yet.";
+	document.getElementById("aadharMsg").textContent = "";
+	currentRCHID = null;
 }
-
 
 // ------------------------------------------
 // 3️⃣ SAVE AADHAAR LAST 4 DIGITS
 // ------------------------------------------
 async function saveAadhar() {
-    const digits = document.getElementById("aadharLast4").value.trim();
-    const msg = document.getElementById("aadharMsg");
+	const digits = document.getElementById("aadharLast4").value.trim();
+	const msg = document.getElementById("aadharMsg");
 
-    msg.textContent = "";
-    msg.style.color = "red";
+	msg.textContent = "";
+	msg.style.color = "red";
 
-    if (!currentRCHID) {
-        msg.textContent = "Please search and fetch a record first.";
-        return;
-    }
+	if (!currentRCHID) {
+		msg.textContent = "Please search and fetch a record first.";
+		return;
+	}
 
-    if (!digits || digits.length !== 4) {
-        msg.textContent = "Enter valid last 4 digits.";
-        return;
-    }
+	if (!digits || digits.length !== 4) {
+		msg.textContent = "Enter valid last 4 digits.";
+		return;
+	}
 
-    try {
-        const token = localStorage.getItem("jwtToken");
+	try {
+		const token = localStorage.getItem("jwtToken");
 
-        const response = await fetch(
-            `${apiBase}/UpdateAadhaar/${currentRCHID}`,
-            {
-                method: "PUT",
-                headers: {
-                    "Authorization": `Bearer ${token}`,
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ LastFourDigits: digits })
-            }
-        );
+		const response = await fetch(`${apiBase}/UpdateAadhaar/${currentRCHID}`, {
+			method: "PUT",
+			headers: {
+				Authorization: `Bearer ${token}`,
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ LastFourDigits: digits }),
+		});
 
-        const result = await response.text();
-        console.log("Backend:", result);
+		const result = await response.text();
+		console.log("Backend:", result);
 
-        if (!response.ok) {
-            msg.textContent = result;
-            return;
-        }
+		if (!response.ok) {
+			msg.textContent = result;
+			return;
+		}
 
-        msg.textContent = "✔ Aadhaar updated successfully!";
-        msg.style.color = "green";
-		 document.getElementById("aadharLast4").value = "";
-         // refresh UI
-		 setTimeout(() => {
-           searchBC();     // reload data AFTER 1.5 seconds
-        }, 1500);
-
-    } catch (err) {
-        console.error(err);
-        msg.textContent = "Error updating Aadhaar.";
-    }
+		msg.textContent = "✔ Aadhaar updated successfully!";
+		msg.style.color = "green";
+		document.getElementById("aadharLast4").value = "";
+		// refresh UI
+		setTimeout(() => {
+			searchBC(); // reload data AFTER 1.5 seconds
+		}, 1500);
+	} catch (err) {
+		console.error(err);
+		msg.textContent = "Error updating Aadhaar.";
+	}
 }
-
 
 // ------------------------------------------
 // 4️⃣ LOGIN CHECK
 // ------------------------------------------
 function checkLogin() {
-    const token = localStorage.getItem("jwtToken");
-    if (!token) {
-        alert("Session expired! Please login again.");
-        window.location.href = "index.html";
-    }
+	const token = localStorage.getItem("jwtToken");
+	if (!token) {
+		alert("Session expired! Please login again.");
+		window.location.href = "index.html";
+	}
 }
-
 
 // ------------------------------------------
 // 5️⃣ LOGOUT
 // ------------------------------------------
 // Logout
 function logout() {
-    localStorage.removeItem("jwtToken");
-    localStorage.removeItem("user");
-    window.location.href = "login.html";
+	localStorage.removeItem("jwtToken");
+	localStorage.removeItem("user");
+	window.location.href = "login.html";
 }

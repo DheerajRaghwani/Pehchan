@@ -1,48 +1,48 @@
-const apiBase = "https://localhost:7003/api/Childrecord";  
+const apiBase = "https://pehchanapi.rdmp.in/api/Childrecord";
 
 // -------------------------------
 // 1️⃣ SEARCH CHILD BY RCH ID
 // -------------------------------
 async function searchRCH() {
-    const rchid = document.getElementById("rchSearchInput").value.trim();
-    const box = document.getElementById("rchRecordBox");
-    const msg = document.getElementById("birthMsg");
+	const rchid = document.getElementById("rchSearchInput").value.trim();
+	const box = document.getElementById("rchRecordBox");
+	const msg = document.getElementById("birthMsg");
 
-    msg.textContent = "";
-    box.innerHTML = "<p class='muted'>Searching...</p>";
+	msg.textContent = "";
+	box.innerHTML = "<p class='muted'>Searching...</p>";
 
-    if (!rchid) {
-        box.innerHTML = "<p class='muted'>Please enter RCH ID.</p>";
-        return;
-    }
-    try {
-        const token = localStorage.getItem("jwtToken");
+	if (!rchid) {
+		box.innerHTML = "<p class='muted'>Please enter RCH ID.</p>";
+		return;
+	}
+	try {
+		const token = localStorage.getItem("jwtToken");
 
-        console.log("Fetching:", `${apiBase}/GetByRCHID/${rchid}`);
+		console.log("Fetching:", `${apiBase}/GetByRCHID/${rchid}`);
 
-        const response = await fetch(`${apiBase}/GetByRCHID/${rchid}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
-            }
-        });
+		const response = await fetch(`${apiBase}/GetByRCHID/${rchid}`, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`,
+			},
+		});
 
-        if (!response.ok) {
-            box.innerHTML = "<p class='muted'>No record found.</p>";
-            return;
-        }
+		if (!response.ok) {
+			box.innerHTML = "<p class='muted'>No record found.</p>";
+			return;
+		}
 
-        const data = await response.json();
+		const data = await response.json();
 
-        if (!data) {
-            box.innerHTML = "<p class='muted'>No record found.</p>";
-            return;
-        }
+		if (!data) {
+			box.innerHTML = "<p class='muted'>No record found.</p>";
+			return;
+		}
 
-        window.currentRCHID = data.rchid;
+		window.currentRCHID = data.rchid;
 
-        box.innerHTML = `
+		box.innerHTML = `
            <table class="full-width-table">
   <tr>
      
@@ -80,106 +80,96 @@ async function searchRCH() {
 </table>
 
         `;
-
-    } catch (err) {
-        console.error(err);
-        box.innerHTML = "<p class='muted'>Error while fetching record.</p>";
-    }
+	} catch (err) {
+		console.error(err);
+		box.innerHTML = "<p class='muted'>Error while fetching record.</p>";
+	}
 }
-
-
 
 // ----------------------------
 // 2️⃣ RESET
 // ----------------------------
 function resetSearchRCH() {
-    document.getElementById("rchSearchInput").value = "";
-    document.getElementById("rchRecordBox").innerHTML = "No record fetched yet.";
-    document.getElementById("birthMsg").textContent = "";
-    window.currentRCHID = null;
+	document.getElementById("rchSearchInput").value = "";
+	document.getElementById("rchRecordBox").innerHTML = "No record fetched yet.";
+	document.getElementById("birthMsg").textContent = "";
+	window.currentRCHID = null;
 }
-
-
 
 // ----------------------------
 // 3️⃣ SAVE BC NUMBER
 // ----------------------------
 async function saveBirthCertificate() {
-    const bcNumber = document.getElementById("bcNumber").value.trim();
-    const msg = document.getElementById("birthMsg");
+	const bcNumber = document.getElementById("bcNumber").value.trim();
+	const msg = document.getElementById("birthMsg");
 
-    msg.textContent = "";
-    msg.style.color = "red";
+	msg.textContent = "";
+	msg.style.color = "red";
 
-    if (!window.currentRCHID) {
-        msg.textContent = "Please search and fetch a record first.";
-        return;
-    }
+	if (!window.currentRCHID) {
+		msg.textContent = "Please search and fetch a record first.";
+		return;
+	}
 
-    if (!bcNumber) {
-        msg.textContent = "Please enter Birth Certificate Number.";
-        return;
-    }
+	if (!bcNumber) {
+		msg.textContent = "Please enter Birth Certificate Number.";
+		return;
+	}
 
-    try {
-        const token = localStorage.getItem("jwtToken");
+	try {
+		const token = localStorage.getItem("jwtToken");
 
-        const response = await fetch(
-            `${apiBase}/UpdateBirthCert/${window.currentRCHID}`,
-            {
-                method: "PUT",
-                headers: {
-                    "Authorization": `Bearer ${token}`,
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(bcNumber)
-            }
-        );
+		const response = await fetch(
+			`${apiBase}/UpdateBirthCert/${window.currentRCHID}`,
+			{
+				method: "PUT",
+				headers: {
+					Authorization: `Bearer ${token}`,
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(bcNumber),
+			}
+		);
 
-        const result = await response.text();
-        console.log("Backend Response:", result);
+		const result = await response.text();
+		console.log("Backend Response:", result);
 
-        if (!response.ok) {
-            msg.textContent = result || "Failed to update birth certificate.";
-            return;
-        }
+		if (!response.ok) {
+			msg.textContent = result || "Failed to update birth certificate.";
+			return;
+		}
 
-        // ✔ Show success message
-        msg.textContent = "✔ Birth Certificate updated successfully!";
-        msg.style.color = "green";
-		 document.getElementById("bcNumber").value = "";
-        // ❗ Delay refresh so user can see message
-        setTimeout(() => {
-            searchRCH();     // reload data AFTER 1.5 seconds
-        }, 1500);
-
-    } catch (err) {
-        console.error(err);
-        msg.textContent = "Error while saving birth certificate.";
-    }
+		// ✔ Show success message
+		msg.textContent = "✔ Birth Certificate updated successfully!";
+		msg.style.color = "green";
+		document.getElementById("bcNumber").value = "";
+		// ❗ Delay refresh so user can see message
+		setTimeout(() => {
+			searchRCH(); // reload data AFTER 1.5 seconds
+		}, 1500);
+	} catch (err) {
+		console.error(err);
+		msg.textContent = "Error while saving birth certificate.";
+	}
 }
-
-
 
 // ----------------------------
 // 4️⃣ CHECK LOGIN
 // ----------------------------
 function checkLogin() {
-    const token = localStorage.getItem("jwtToken");
-    if (!token) {
-        alert("Session expired! Please login again.");
-        window.location.href = "login.html";
-    }
+	const token = localStorage.getItem("jwtToken");
+	if (!token) {
+		alert("Session expired! Please login again.");
+		window.location.href = "login.html";
+	}
 }
-
-
 
 // ----------------------------
 // 5️⃣ LOGOUT
 // ----------------------------
 // Logout
 function logout() {
-    localStorage.removeItem("jwtToken");
-    localStorage.removeItem("user");
-    window.location.href = "login.html";
+	localStorage.removeItem("jwtToken");
+	localStorage.removeItem("user");
+	window.location.href = "login.html";
 }
