@@ -23,8 +23,14 @@ public partial class PenchanContext : DbContext
     public virtual DbSet<Userlogin> Userlogins { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        // Only configure if options are not already set (e.g., from dependency injection)
+        if (!optionsBuilder.IsConfigured)
+        {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseMySql("server=localhost;port=3306;database=penchan;user=root;password=1111", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.17-mysql"));
+            optionsBuilder.UseMySql("server=localhost;port=3306;database=penchan;user=root;password=1111", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.33-mysql"));
+        }
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

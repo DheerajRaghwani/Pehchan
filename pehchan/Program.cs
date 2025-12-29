@@ -43,8 +43,12 @@ builder.Services.AddSwaggerGen(c =>
 
 // 3. Add Database Context
 var conn = builder.Configuration.GetConnectionString("DefaultConnection");
+if (string.IsNullOrEmpty(conn))
+{
+    throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+}
 builder.Services.AddDbContext<PenchanContext>(o =>
-    o.UseMySql(conn, ServerVersion.AutoDetect(conn))
+    o.UseMySql(conn, Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.33-mysql"))
 );
 
 // 4. Register custom services
