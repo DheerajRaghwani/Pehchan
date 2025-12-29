@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Import Child Record — Project Maa</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Simple table styling for preview */
+    #excelPreview {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+      display: none;
+    }
+    #excelPreview th, #excelPreview td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+    #excelPreview th {
+      background-color: #f2f2f2;
+    }
+    #excelPreview tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    #excelPreview tr:hover {
+      background-color: #eaeaea;
+    }
+  </style>
+</head>
+<body onload="checkLogin()">
+  <div class="layout">
+    <nav class="sidebar" aria-label="Main navigation">
+      <button class="sidebar-close" onclick="closeSidebar()">✕</button>
+      <div class="brand">
+        <img src="images/logo.png" alt="Logo" class="sidebar-logo">
+        <span>Project Maa</span>
+      </div>
+      <a class="nav-link" href="Admindashboard.html">Home</a>
+      <a class="nav-link" href="child-entry.html">Child Entry</a>
+      <a class="nav-link active" href="import.html">Import Child Record</a>
+      <a class="nav-link" href="birthcertificate.html">Birth Certificate Entry</a>
+      <a class="nav-link" href="aadhar.html">Aadhaar Entry</a>
+      <a class="nav-link" href="castecertificate.html">Caste Certificate Entry</a>
+      <a class="nav-link" href="rationcard.html">Ration Card Entry</a>
+      <a class="nav-link" href="ayushmancard.html">Ayushman Card Entry</a>
+      <a class="nav-link" href="adminpanel.html">Admin Panel</a>
+
+      <div class="sidebar-footer">
+      <button class="nav-logout" onclick="logout()">Logout</button>
+      <div class="user-footer-row">
+      <img src="images/dalogo3.png" alt="User Icon" class="user-footer-icon">
+      <div id="userBadge" class="user-badge">Child</div>
+      </div>
+      </div>
+    </nav>
+
+    <main class="content">
+      <header class="topbar">
+        <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+        <h2>Import Child Record</h2>
+      </header>
+
+      <section class="card form-card">
+        <form id="importForm" onsubmit="return false;">
+          <label>Select Excel File</label>
+          <input type="file" id="importFile" accept=".xlsx,.xls" required>
+
+          <div class="form-actions" style="margin-top:14px">
+          <!--  <button type="button" class="btn-ghost" onclick="previewExcelFile()">Preview</button> -->
+            <button class="btn-primary" onclick="uploadFile()">Upload</button>
+            <button type="button" class="btn-ghost" onclick="resetImport()">Reset</button>
+          </div>
+
+          <p id="importMsg" class="muted small" style="margin-top:10px"></p>
+        </form>
+
+        <!-- Excel Preview Table -->
+        <table id="excelPreview">
+          <thead id="previewHead"></thead>
+          <tbody id="previewBody"></tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+  <div class="sidebar-overlay" onclick="closeSidebar()"></div>
+
+  <script>
+  function toggleSidebar() {
+    document.querySelector('.sidebar').classList.add('open');
+    document.querySelector('.sidebar-overlay').classList.add('show');
+    document.body.classList.add('sidebar-open');
+  }
+
+  function closeSidebar() {
+    document.querySelector('.sidebar').classList.remove('open');
+    document.querySelector('.sidebar-overlay').classList.remove('show');
+    document.body.classList.remove('sidebar-open');
+  }
+
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', closeSidebar);
+  });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.19.2/dist/xlsx.full.min.js"></script>
+  <script src="import.js"></script>
+</body>
+</html>

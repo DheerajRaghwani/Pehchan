@@ -1,0 +1,93 @@
+/* =====================================================
+   PROJECT MAA — MOTHER THEME (PINK)
+   Only overrides colors, NOT layout or spacing
+   ===================================================== */
+
+/* 1️⃣ Core Theme Variables */
+:root {
+  --accent: #ec4899;        /* Pink 500 */
+  --accent-600: #db2777;    /* Pink 600 */
+  --glass: rgba(236,72,153,0.08);
+
+  --success: #16a34a;
+  --danger: #be123c;
+}
+
+/* 2️⃣ Sidebar brand + links */
+.sidebar .brand,
+.sidebar .brand span {
+  color: var(--accent);
+}
+
+.nav-link {
+  color: var(--accent);
+  background: var(--glass);
+}
+
+.nav-link.active {
+  background: linear-gradient(
+    90deg,
+    rgba(236,72,153,0.14),
+    transparent
+  );
+}
+
+/* 3️⃣ Buttons */
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--accent-600);
+}
+
+.btn-ghost {
+  border-color: rgba(236,72,153,0.25);
+}
+
+/* Pagination buttons */
+.pagination button {
+  background: rgba(236,72,153,0.12);
+}
+
+/* 4️⃣ User badge */
+.user-badge {
+  color: var(--accent);
+  background: var(--glass);
+}
+
+/* 5️⃣ Inputs focus */
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(236,72,153,0.15);
+}
+
+/* 6️⃣ Cards subtle accent */
+.stat-card h3 {
+  color: #9d174d; /* deep pink text */
+}
+
+/* 7️⃣ Topbar heading */
+.topbar h2 {
+  color: #9d174d;
+}
+
+/* 8️⃣ Sidebar close & menu toggle */
+.sidebar-close,
+.menu-toggle {
+  color: var(--accent);
+}
+
+/* 9️⃣ Logout button (danger but pink-tinted) */
+.nav-logout {
+  color: #be123c;
+  border-color: rgba(190,18,60,0.2);
+}
+
+/* 🔟 Table header accent (if present later) */
+.table-placeholder th {
+  color: #9d174d;
+}

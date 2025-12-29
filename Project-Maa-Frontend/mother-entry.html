@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Mother Entry — Project Maa</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="theme-pink.css">
+</head>
+<body onload="checkLogin()">
+  <div class="layout">
+    <!-- Sidebar -->
+    <nav class="sidebar" aria-label="Main navigation">
+        <button class="sidebar-close" onclick="closeSidebar()">✕</button>
+        <div class="brand">
+          <img src="images/logo.png" alt="Logo" class="sidebar-logo">
+          <span>Project Maa</span>
+        </div>
+  <a class="nav-link" href="motherdashboard.html">Home</a>
+        <a class="nav-link active" href="mother-entry.html">Mother Entry</a>
+        <a class="nav-link" href="motherimport.html">Import Mother Record</a>
+        <a class="nav-link" href="mby-entry.html">Matritva Bhatta Yojana</a>
+        <a class="nav-link" href="jsy-entry.html">Janani Suraksha Yojana</a>
+        <a class="nav-link " href="jssy-entry.html">Janani Shishu Suraksha Yojana</a>
+        <a class="nav-link" href="mvy-entry.html">Matru Vandana Yojana</a>
+        <a class="nav-link" href="mmjy-entry.html"> Minimata Mahtari Jatan Yojana </a>
+        
+        
+        <div class="sidebar-footer">
+        <button class="nav-logout" onclick="logout()">Logout</button>
+        <div class="user-footer-row">
+        <img src="images/dalogo3.png" alt="User Icon" class="user-footer-icon">
+        <div id="userBadge" class="user-badge">Mother</div>
+        </div>
+        </div>
+
+      </nav>
+
+    <!-- Top Bar -->
+    <main class="content">
+      <header class="topbar">
+        <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+        <h2>Mother Entry</h2>
+      </header>
+
+    <!-- SEARCH BAR SECTION -->
+    <section class="card form-card">
+  <form id="childForm" onsubmit="return false;">
+
+    <div class="form-row">
+      <div class="col">
+        <label for="District">District</label>
+        <input id="District" required placeholder="Enter District">
+      </div>
+      <div class="col">
+        <label for="HealthBlock">Health Block</label>
+        <input id="HealthBlock" required placeholder="Enter Health Block">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col">
+        <label for="HealthFacility">Health Facility</label>
+        <input id="HealthFacility" required placeholder="Enter Facility">
+      </div>
+      <div class="col">
+        <label for="HealthSubFacility">Health Sub-Facility</label>
+        <input id="HealthSubFacility" required placeholder="Enter Sub Facility">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col">
+        <label for="Village">Village</label>
+        <input id="Village" required placeholder="Enter Village">
+      </div>
+      <div class="col">
+        <label for="RCHID">RCH ID</label>
+        <input id="RCHID" required placeholder="Enter RCH ID">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col">
+        <label for="MotherName">Mother Name</label>
+        <input id="MotherName" required placeholder="Enter Mother Name">
+      </div>
+      <div class="col">
+        <label for="HusbandName">Husband Name</label>
+        <input id="HusbandName" placeholder="Enter Husband Name">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col">
+        <label for="Mobileof">Mobile of (Mother/Father)</label>
+        <input id="Mobileof" placeholder="e.g., Mother / Father">
+      </div>
+      <div class="col">
+        <label for="MobileNo">Mobile Number</label>
+        <input id="MobileNo" maxlength="10" minlength="10" pattern="\d{10}" required placeholder="Enter Mobile Number">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col">
+        <label for="AgeasperRegistration">Age as per Registration</label>
+        <input id="AgeasperRegistration" placeholder="Enter Mother’s Age">
+      </div>
+      <div class="col">
+        <label for="Delivery">Mother DOB</label>
+        <input id="Delivery" type="date">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col full">
+        <label for="Address">Complete Address</label>
+        <textarea id="Address" rows="3" placeholder="Village / Block / District"></textarea>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col">
+        <label for="ANMName">ANM Name</label>
+        <input id="ANMName" required placeholder="Enter ANM Name">
+      </div>
+      <div class="col">
+        <label for="ASHAName">ASHA Name</label>
+        <input id="ASHAName" required placeholder="Enter ASHA Name">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col">
+        <label for="RegistrationDate">Registration Date</label>
+        <input id="RegistrationDate" type="date">
+      </div>
+      <div class="col">
+        <label for="LMP">LMP</label>
+        <input id="LMP" type="date">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col">
+        <label for="EDD">EDD</label>
+        <input id="EDD" type="date">
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn-primary" onclick="saveChild()">Save Child</button>
+      <button type="button" class="btn-ghost" onclick="resetChildForm()">Reset</button>
+      <p id="childMsg" class="muted small"></p>
+    </div>
+
+  </form>
+</section>
+
+
+    </main>
+    </div>
+    <div class="sidebar-overlay" onclick="closeSidebar()"></div>
+
+        <script>
+        function toggleSidebar() {
+          document.querySelector('.sidebar').classList.add('open');
+          document.querySelector('.sidebar-overlay').classList.add('show');
+          document.body.classList.add('sidebar-open');
+        }
+
+        function closeSidebar() {
+          document.querySelector('.sidebar').classList.remove('open');
+          document.querySelector('.sidebar-overlay').classList.remove('show');
+          document.body.classList.remove('sidebar-open');
+        }
+
+        document.querySelectorAll('.nav-link').forEach(link => {
+          link.addEventListener('click', closeSidebar);
+        });
+      </script>
+
+    <script src="motherentry.js"></script>  
+</body>
+</html>

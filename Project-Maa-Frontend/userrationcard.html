@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Ration Card Entry — Project Maa</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body onload="checkLogin()">
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <nav class="sidebar" aria-label="Main navigation">
+      <button class="sidebar-close" onclick="closeSidebar()">✕</button>
+      <div class="brand">
+       <img src="images/logo.png" alt="Logo" class="sidebar-logo">
+        <span>Project Maa</span>
+      </div>
+ <a class="nav-link " href="dashboard.html">Home</a>
+      <a class="nav-link" href="userbirthcertificate.html">Birth Certificate Entry</a>
+	  <a class="nav-link " href="useraadhar.html">Aadhaar Entry</a>
+	   <a class="nav-link" href="usercastecertificate.html">Caste Certificate Entry</a>
+	  <a class="nav-link active" href="userrationcard.html"> Ration card Entry</a>
+	  <a class="nav-link" href="userayushmancard.html"> Ayushman card Entry</a>
+      
+      <div class="sidebar-footer">
+      <button class="nav-logout" onclick="logout()">Logout</button>
+      <div class="user-footer-row">
+      <img src="images/dalogo3.png" alt="User Icon" class="user-footer-icon">
+      <div id="userBadge" class="user-badge">User</div>
+      </div>
+      </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+
+      <!-- TOP BAR -->
+      <header class="topbar">
+        <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+        <h2>Ration Card Entry</h2>
+      </header>
+
+      <!-- SEARCH BAR SECTION -->
+      <section class="card">
+        <label for="bcSearchInput">Birth Certificate Number</label>
+        <input id="bcSearchInput" required placeholder="Enter Birth Certificate No.">
+
+        <label for="aadhaarLast4">Aadhaar Last 4 Digits</label>
+        <input id="aadhaarLast4" maxlength="4" required placeholder="Enter last 4 digits">
+
+        <div class="btn-row" style="margin-top:10px;">
+          <button class="btn-primary" onclick="searchRation()">Search</button>
+          <button class="btn-ghost" onclick="resetSearchRation()">Reset</button>
+        </div>
+      </section>
+
+      <!-- DISPLAY RECORD SECTION -->
+      <section class="card" style="margin-top:20px;">
+        <h3>Fetched Record</h3>
+        <div id="rationRecordBox" class="table-placeholder muted">
+          No record fetched yet.
+        </div>
+      </section>
+
+      <!-- FORM SECTION - ENTER RATION CARD NUMBER -->
+      <section class="card form-card" style="margin-top:20px;">
+        <label for="rationNumber">Ration Card Number</label>
+        <input id="rationNumber" placeholder="Enter Ration Card Number">
+
+        <div class="form-actions" style="margin-top:20px;">
+          <button class="btn-primary" onclick="saveRation()">Save</button>
+          <button class="btn-ghost" onclick="history.back()">Back</button>
+        </div>
+
+        <p id="rationMsg" class="muted small" style="margin-top:10px"></p>
+      </section>
+
+    </main>
+
+  </div>
+  <div class="sidebar-overlay" onclick="closeSidebar()"></div>
+
+    <script>
+    function toggleSidebar() {
+      document.querySelector('.sidebar').classList.add('open');
+      document.querySelector('.sidebar-overlay').classList.add('show');
+      document.body.classList.add('sidebar-open');
+    }
+
+    function closeSidebar() {
+      document.querySelector('.sidebar').classList.remove('open');
+      document.querySelector('.sidebar-overlay').classList.remove('show');
+      document.body.classList.remove('sidebar-open');
+    }
+
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', closeSidebar);
+    });
+  </script>
+  <script src="rationcard.js"></script>
+</body>
+</html>

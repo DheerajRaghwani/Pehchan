@@ -1,0 +1,259 @@
+  <!doctype html>
+  <html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>Project Maa — Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+
+  <body onload="checkLogin()">
+    <div class="layout">
+
+      <!-- SIDEBAR -->
+      <nav class="sidebar" aria-label="Main navigation">
+        <button class="sidebar-close" onclick="closeSidebar()">✕</button>
+        <div class="brand">
+          <img src="images/logo.png" alt="Logo" class="sidebar-logo">
+          <span>Project Maa</span>
+        </div>
+  <a class="nav-link active" href="Admindashboard.html">Home</a>
+        <a class="nav-link" href="child-entry.html">Child Entry</a>
+        <a class="nav-link" href="import.html">Import Child Record</a>
+        <a class="nav-link" href="birthcertificate.html">Birth Certificate Entry</a>
+        <a class="nav-link " href="aadhar.html">Aadhaar Entry</a>
+        <a class="nav-link" href="castecertificate.html">Caste Certificate Entry</a>
+        <a class="nav-link" href="rationcard.html"> Ration card Entry</a>
+        <a class="nav-link" href="ayushmancard.html"> Ayushman card Entry</a>
+        <a class="nav-link" href="adminpanel.html">Admin Panel</a>
+        
+        <div class="sidebar-footer">
+        <button class="nav-logout" onclick="logout()">Logout</button>
+        <div class="user-footer-row">
+        <img src="images/dalogo3.png" alt="User Icon" class="user-footer-icon">
+        <div id="userBadge" class="user-badge">Admin</div>
+        </div>
+        </div>
+
+      </nav>
+
+      <!-- MAIN CONTENT -->
+      <main class="content">
+
+        <!-- TOP BAR -->
+        <header class="topbar">
+          <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+          <h2>Dashboard</h2>
+        </header>
+
+        <!-- SEARCH BAR -->
+        <section class="card" style="margin-top:20px;">
+          <div class="search-bar-container">
+            <input id="searchInput" type="text" class="search-input" placeholder="Search by RCH ID..."/>
+            <button class="btn-primary" onclick="searchByRCHID()">Search</button>
+            <button class="btn-ghost" onclick="resetSearch()">Reset</button>
+          </div>
+        </section>
+
+        <!-- ⭐ ALL STAT CARDS INSIDE ONE SECTION -->
+        <section class="card" style="text-align:center;argin-top:20px; padding:20px;">
+          <h3>Overall Statistics</h3>
+
+          <div class="grid" style="margin-top:15px;">
+            
+            <article class="stat-card">
+              <h3 id="totalChildren">—</h3>
+              <p class="muted">Total Children</p>
+            </article>
+
+            <article class="stat-card">
+              <h3 id="totalbirth">—</h3>
+        <div id="totalbirth" class="stat-box"></div>
+              <p class="muted">Total Birth Certificate</p>
+            </article>
+
+            <article class="stat-card">
+              <h3 id="totalcaste">—</h3>
+        <div id="totalcaste" class="stat-box"></div>
+              <p class="muted">Total Caste Certificate</p>
+            </article>
+
+            <article class="stat-card">
+              <h3 id="totalration">—</h3>
+        <div id="totalration" class="stat-box"></div>
+              <p class="muted">Total Ration Card</p>
+            </article>
+
+            <article class="stat-card">
+              <h3 id="totalaadhar">—</h3>
+        <div id="totalaadhar" class="stat-box"></div>
+              <p class="muted">Total Aadhar Card</p>
+            </article>
+
+            <article class="stat-card">
+              <h3 id="totalayushman">—</h3>
+        <div id="totalayushman" class="stat-box"></div>
+              <p class="muted">Total Ayushman Card</p>
+            </article>
+
+          </div>
+        </section>
+  <div 
+    style="
+      display:flex; 
+      justify-content:center; 
+      align-items:center; 
+      margin-top:20px;
+    "
+  >
+
+    <!-- CENTERED + BIGGER DROPDOWN -->
+    <div 
+      style="
+        width:260px; 
+        text-align:center;
+      "
+    >
+      <label class="muted" style="font-size:15px;">Certificates Not Updated</label>
+
+      <select 
+        id="certificate" 
+        class="input-select"
+        style="
+          width:100%; 
+          padding:10px 12px; 
+          font-size:15px; 
+          height:40px;
+          border-radius:6px;
+        "
+      >
+        <option value="">Select Certificate</option>
+        <option value="Birth">Birth Certificate</option>
+        <option value="Caste">Caste Certificate</option>
+        <option value="Aadhar">Aadhar Card</option>
+        <option value="Ayushman">Ayushman Card</option>
+        <option value="Ration">Ration Card</option>
+      </select>
+    </div>
+
+  </div>
+  
+<!-- Filter Section -->
+  <section class="card" style="text-align:center;margin-top:20px; padding:20px;">
+          <h3>Filters</h3>
+
+          <div class="grid" style="margin-top:15px; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:15px;">
+
+           <div>
+			  <label class="muted">Village</label>
+			  <input 
+				type="text" 
+				id="village" 
+				class="input-select" 
+				placeholder="Type village name..."
+			  />
+			</div>
+
+      <div>
+        <label class="muted">Block</label>
+          <select id="block" class="input-select">
+            <option value="">Select Block</option>
+            <option value="AARNG">AARNG (100)</option>
+            <option value="ABHANPUR">ABHANPUR (101)</option>
+            <option value="DHARSEEVA">DHARSEEVA (102)</option>
+            <option value="TILDA">TILDA (104)</option>
+          </select>
+      </div>
+
+
+          </div>
+        </section>
+
+    <section class="card" 
+      style="
+        margin-top:20px; 
+        padding:20px; 
+        width:260px; 
+        margin-left:auto; 
+        margin-right:auto; 
+        text-align:center;
+      "
+    >
+    <h3 style="text-align:center; margin-bottom:10px;">Total Record</h3>
+
+    <div 
+      style="
+        display:flex; 
+        justify-content:center; 
+        margin-top:10px;
+      "
+    >
+      <article class="stat-card" 
+        style="
+          width:140px; 
+          padding:15px 10px; 
+          text-align:center; 
+          border-radius:10px; 
+          box-shadow:0 2px 6px rgba(0,0,0,0.1);
+        ">
+        <h3 id="totalrecord"></h3>
+        <p class="muted"></p>
+      </article>
+    </div>
+    </section>
+
+    <!-- View All -->
+    <section style="margin-top:20px">
+    <div class="card">
+
+    <!-- HEADER WITH EXPORT BUTTON -->
+   <div style="display:flex; justify-content:space-between; align-items:center;">
+      <h3 style="margin:0;">View All</h3>
+      <button 
+        class="btn-primary"
+        onclick="exportData()"
+        style="padding:6px 14px; font-size:14px;"
+      >
+        Export
+      </button>
+    </div>
+
+    <div id="childrenList" class="table-placeholder muted"></div>
+
+    <div class="pagination">
+      <button id="prevBtn">Prev</button>
+      <span id="pageNumber">Page 1</span>
+      <button id="nextBtn">Next</button>
+    </div>
+
+  </div>
+</section>
+
+
+      </main>
+    </div>
+
+    <div class="sidebar-overlay" onclick="closeSidebar()"></div>
+      <script>
+        function toggleSidebar() {
+          document.querySelector('.sidebar').classList.add('open');
+          document.querySelector('.sidebar-overlay').classList.add('show');
+          document.body.classList.add('sidebar-open');
+        }
+
+        function closeSidebar() {
+          document.querySelector('.sidebar').classList.remove('open');
+          document.querySelector('.sidebar-overlay').classList.remove('show');
+          document.body.classList.remove('sidebar-open');
+        }
+
+        document.querySelectorAll('.nav-link').forEach(link => {
+          link.addEventListener('click', closeSidebar);
+        });
+      </script>
+    
+
+    <script src="Admindashboard.js"></script>
+  </body>
+  </html>
+

@@ -1,0 +1,309 @@
+  <!doctype html>
+  <html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>Project Maa — Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+	<link rel="stylesheet" href="theme-pink.css">
+  </head>
+
+  <body onload="checkLogin()">
+    <div class="layout">
+
+      <!-- SIDEBAR -->
+      <nav class="sidebar" aria-label="Main navigation">
+        <button class="sidebar-close" onclick="closeSidebar()">✕</button>
+        <div class="brand">
+          <img src="images/logo.png" alt="Logo" class="sidebar-logo">
+          <span>Project Maa</span>
+        </div>
+        <a class="nav-link active" href="usermotherdashboard.html">Home</a>
+        <a class="nav-link" href="usermby-entry.html">Matritva Bhatta Yojana</a>
+        <a class="nav-link" href="userjsy-entry.html">Janani Suraksha Yojana</a>
+        <a class="nav-link " href="userjssy-entry.html">Janani Shishu Suraksha Yojana</a>
+        <a class="nav-link" href="usermvy-entry.html">Matru Vandana Yojana</a>
+        <a class="nav-link" href="usermmjy-entry.html"> Minimata Mahtari Jatan Yojana </a>
+        
+        
+        <div class="sidebar-footer">
+        <button class="nav-logout" onclick="logout()">Logout</button>
+        <div class="user-footer-row">
+        <img src="images/dalogo3.png" alt="User Icon" class="user-footer-icon">
+        <div id="userBadge" class="user-badge">Mother</div>
+        </div>
+        </div>
+
+      </nav>
+
+      <!-- MAIN CONTENT -->
+      <main class="content">
+
+        <!-- TOP BAR -->
+        <header class="topbar">
+          <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+          <h2> Dashboard (User)</h2>
+        </header>
+
+        <!-- SEARCH BAR -->
+            <section class="card" style="margin-top:20px;">
+                <!-- mother button -->
+                <div style="display:flex; justify-content:flex-end; align-items:center; margin-bottom:14px; gap:10px;">
+  
+                <!-- Label -->
+                <span style="font-size:13px; color:#666;">
+                    Go to Child panel
+                </span>
+
+                <!-- Button -->
+                <button class="btn-primary" onclick="openMotherEntry()">
+                    Child Dashboard
+                </button>
+
+            </div>
+
+            <div class="search-bar-container">
+                <input id="searchInput" type="text" class="search-input" placeholder="Search by RCH ID..."/>
+                <button class="btn-primary" onclick="searchByRCHID()">Search</button>
+                <button class="btn-ghost" onclick="resetSearch()">Reset</button>
+            </div>
+            </section>
+			<script>
+				function openMotherEntry() {
+				window.location.href = "dashboard.html";
+				}
+		</script>
+
+        <!-- ⭐ ALL STAT CARDS INSIDE ONE SECTION -->
+        <section class="card" style="text-align:center;argin-top:20px; padding:20px;">
+          <h3>Overall Statistics</h3>
+
+          <div class="grid" style="margin-top:15px;">
+            
+            <article class="stat-card">
+              <h3 id="TotalMother">—</h3>
+              <p class="muted">Total Mother</p>
+            </article>
+
+            <article class="stat-card">
+              <h3 id="totalmby">—</h3>
+        <div id="totalmby" class="stat-box"></div>
+              <p class="muted">Total Matritva Bhatta</p>
+            </article>
+
+            <article class="stat-card">
+              <h3 id="totaljs">—</h3>
+        <div id="totaljs" class="stat-box"></div>
+              <p class="muted">Total Janani Suraksha</p>
+            </article>
+
+            <article class="stat-card">
+              <h3 id="totaljss">—</h3>
+        <div id="totaljss" class="stat-box"></div>
+              <p class="muted">Total Janani Shishu Suraksha</p>
+            </article>
+
+            <article class="stat-card">
+              <h3 id="totalmv">—</h3>
+        <div id="totalmv" class="stat-box"></div>
+              <p class="muted">Total Matru Vandana</p>
+            </article>
+
+            <article class="stat-card">
+              <h3 id="totalmm">—</h3>
+            <div id="totalmm" class="stat-box"></div>
+              <p class="muted">Total Minimata Mahtari</p>
+            </article>
+			
+
+          </div>
+        </section>
+		<div
+		style="
+		display:flex;
+		justify-content: center;
+		align-items: center;
+		margin-top:20px;
+		">
+		
+		<!-- CENTERED + BIGGER DROPDOWN-->
+		
+		 <section class="card" style="text-align:center;margin-top:20px; padding:20px;">
+		 <h3>Scheme Status</h3>
+		  <div 
+			style="
+				width:260px;
+				text-align:center; 
+			"
+		  >
+		
+		<label class="muted" style="font-size:15px;">Pending</label>
+
+		  <select 
+			id="certificate" 
+			class="input-select"
+			style="
+			  width:100%; 
+			  padding:10px 12px; 
+			  font-size:15px; 
+			  height:40px;
+			  border-radius:6px;
+			"
+		  >
+        <option value="">Select Scheme</option>
+        <option value="mby">Matritva Bhatta</option>
+        <option value="jsy">Janani Suraksha</option>
+        <option value="jssy">Janani Shishu Suraksha</option>
+        <option value="pmmvy">Matru Vandana</option>
+        <option value="mmjy">Minimata Mahtari</option>
+      </select>
+    </div>
+	<div 
+      style="
+        width:260px; 
+        text-align:center;
+      "
+    >
+      <label class="muted" style="font-size:15px;">Not get Benefit</label>
+
+      <select 
+        id="certificate1" 
+        class="input-select"
+        style="
+          width:100%; 
+          padding:10px 12px; 
+          font-size:15px; 
+          height:40px;
+          border-radius:6px;
+        "
+      >
+        <option value="">Select Scheme</option>
+        <option value="mby">Matritva Bhatta</option>
+        <option value="jsy">Janani Suraksha</option>
+        <option value="jssy">Janani Shishu Suraksha</option>
+        <option value="pmmvy">Matru Vandana</option>
+        <option value="mmjy">Minimata Mahtari</option>
+      </select>
+	</div>
+
+  </div>
+  </section>
+  
+<!-- Filter Section -->
+  <section class="card" style="text-align:center;margin-top:20px; padding:20px;">
+          <h3>Filters</h3>
+
+          <div class="grid" style="margin-top:15px; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:15px;">
+
+           <div>
+			  <label class="muted">Village</label>
+			  <input 
+				type="text" 
+				id="village" 
+				class="input-select" 
+				placeholder="Type village name..."
+			  />
+			</div>
+
+      <div>
+        <label class="muted">Block</label>
+          <select id="block" class="input-select">
+            <option value="">Select Block</option>
+            <option value="AARNG">AARNG (100)</option>
+            <option value="ABHANPUR">ABHANPUR (101)</option>
+            <option value="DHARSEEVA">DHARSEEVA (102)</option>
+            <option value="TILDA">TILDA (104)</option>
+          </select>
+      </div>
+
+
+          </div>
+        </section>
+
+    <section class="card" 
+      style="
+        margin-top:20px; 
+        padding:20px; 
+        width:260px; 
+        margin-left:auto; 
+        margin-right:auto; 
+        text-align:center;
+      "
+    >
+    <h3 style="text-align:center; margin-bottom:10px;">Total Record</h3>
+
+    <div 
+      style="
+        display:flex; 
+        justify-content:center; 
+        margin-top:10px;
+      " 
+    >
+      <article class="stat-card" 
+        style="
+          width:140px; 
+          padding:15px 10px; 
+          text-align:center; 
+          border-radius:10px; 
+          box-shadow:0 2px 6px rgba(0,0,0,0.1);
+        ">
+        <h3 id="totalrecord"></h3>
+        <p class="muted"></p>
+      </article>
+    </div>
+    </section>
+
+    <!-- View All -->
+    <section style="margin-top:20px">
+    <div class="card">
+
+    <!-- HEADER WITH EXPORT BUTTON -->
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <h3 style="margin:0;">View All</h3>
+      <button 
+        class="btn-primary"
+        onclick="exportData()"
+        style="padding:6px 14px; font-size:14px;"
+      >
+        Export
+      </button>
+    </div>
+
+    <div id="childrenList" class="table-placeholder muted"></div>
+
+    <div class="pagination">
+      <button id="prevBtn">Prev</button>
+      <span id="pageNumber">Page 1</span>
+      <button id="nextBtn">Next</button>
+    </div>
+
+  </div>
+</section>
+
+
+      </main>
+    </div>
+
+    <div class="sidebar-overlay" onclick="closeSidebar()"></div>
+      <script>
+        function toggleSidebar() {
+          document.querySelector('.sidebar').classList.add('open');
+          document.querySelector('.sidebar-overlay').classList.add('show');
+          document.body.classList.add('sidebar-open');
+        }
+
+        function closeSidebar() {
+          document.querySelector('.sidebar').classList.remove('open');
+          document.querySelector('.sidebar-overlay').classList.remove('show');
+          document.body.classList.remove('sidebar-open');
+        }
+
+        document.querySelectorAll('.nav-link').forEach(link => {
+          link.addEventListener('click', closeSidebar);
+        });
+      </script>
+    
+
+    <script src="usermotherdashboard.js"></script>
+  </body>
+  </html>

@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Project Maa— Login</title>
+
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* PAGE SETUP */
+    body {
+      margin: 0;
+      padding: 0;
+      background: #f4f7fb;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+    }
+
+    /* LOGIN CARD */
+    .auth-card {
+      background: #ffffff;
+      width: 100%;
+      max-width: 520px; /* 👈 WIDER CARD (only change here) */
+      padding: 36px;
+      border-radius: 14px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      position: relative;
+    }
+
+    /* TOP LOGO ROW */
+    .logo-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .logo-row img {
+      height: 55px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    /* HEADER TEXT */
+    .auth-head {
+      text-align: center;
+      margin-bottom: 22px;
+    }
+
+    .auth-head h1 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    .auth-head .muted {
+      margin-top: 4px;
+      font-size: 14px;
+      color: #6b7280;
+      letter-spacing: 1px;
+    }
+
+    /* FORM STYLING */
+    .form-row {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 18px;
+    }
+
+    .form-row label {
+      margin-bottom: 6px;
+      font-size: 14px;
+      color: #374151;
+    }
+
+    .form-row input {
+      padding: 12px 14px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 15px;
+      outline: none;
+      transition: 0.2s ease;
+    }
+
+    .form-row input:focus {
+      border-color: #2b63ff;
+      box-shadow: 0 0 0 2px rgba(43, 99, 255, 0.15);
+    }
+
+    /* BUTTON */
+    .form-actions {
+      margin-top: 12px;
+    }
+
+    .btn-primary {
+      background: #2b63ff;
+      border: none;
+      padding: 12px 20px;
+      font-size: 15px;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary:hover {
+      background: #224fce;
+    }
+
+    /* ERROR MESSAGE */
+    .error {
+      color: red;
+      margin-top: 10px;
+      font-size: 14px;
+      text-align: center;
+      min-height: 20px;
+    }
+
+    /* BOTTOM COMPANY LOGO */
+    .company-logo {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0.9;
+    }
+
+    .company-logo img {
+      height: 40px;
+      width: auto;
+    }
+
+    @media (max-width: 520px) {
+      .auth-card {
+        margin: 20px;
+        padding: 28px;
+      }
+
+      .logo-row img {
+        height: 45px;
+      }
+
+      .company-logo img {
+        height: 32px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="auth-page">
+    <section class="auth-card">
+
+      <!-- TOP TWO LOGOS -->
+      <div class="logo-row">
+        <img src="images/cglogo.png" alt="Govt Logo">
+        <img src="images/logo.png" alt="Signature Logo">
+      </div>
+
+      <!-- TITLE -->
+      <header class="auth-head">
+        <h1>Project Maa</h1>
+        <p class="muted">SIGN IN</p>
+      </header>
+
+      <!-- LOGIN FORM -->
+      <form id="loginForm" onsubmit="return false;">
+
+        <div class="form-row">
+          <label for="username">Username</label>
+          <input id="username" type="text" placeholder="your username" required>
+        </div>
+
+        <div class="form-row">
+          <label for="password">Password</label>
+          <input id="password" type="password" placeholder="your password" required>
+        </div>
+
+        <div class="form-actions">
+          <button id="loginBtn" class="btn-primary" onclick="login()">Sign in</button>
+        </div>
+
+        <p id="loginError" class="error"></p>
+      </form>
+
+    </section>
+  </main>
+
+  <!-- COMPANY LOGO (BOTTOM CENTER, OUTSIDE CARD) -->
+  <div class="company-logo">
+    <img src="images/dalogo3.png" alt="Company Logo">
+  </div>
+
+  <script src="login.js"></script>
+</body>
+</html>
