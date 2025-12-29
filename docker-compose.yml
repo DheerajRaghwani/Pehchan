@@ -66,6 +66,7 @@ services:
       - "3072:80"
     volumes:
       - ./Project-Maa-Frontend:/usr/share/nginx/html:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
     networks:
       - pehchan_network
 
