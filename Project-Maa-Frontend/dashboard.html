@@ -30,7 +30,7 @@
           <button class="nav-logout" onclick="logout()">Logout</button>
           <div class="user-footer-row">
           <img src="images/dalogo3.png" alt="User Icon" class="user-footer-icon">
-          <div id="userBadge" class="user-badge">User</div>
+          <div id="userBadge" class="user-badge">Child</div>
           </div>
           </div>
 
@@ -42,24 +42,40 @@
             <!-- TOP BAR -->
             <header class="topbar">
             <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
-            <h2>Dashboard</h2>
+            <h2>Dashboard (User)</h2>
             </header>
 
 
 
-            <!-- SEARCH BAR SECTION -->
+            <!-- SEARCH BAR -->
             <section class="card" style="margin-top:20px;">
-              <div class="search-bar-container">
-                <input 
-                  type="text" 
-                  id="searchInput" 
-                  class="search-input"
-                  placeholder="Search by RCH ID..."
-                />
+                <!-- mother button -->
+                <div style="display:flex; justify-content:flex-end; align-items:center; margin-bottom:14px; gap:10px;">
+  
+                <!-- Label -->
+                <span style="font-size:13px; color:#666;">
+                    Go to Mother panel
+                </span>
+
+                <!-- Button -->
+                <button class="btn-primary" onclick="openMotherEntry()">
+                    Mother Dashboard
+                </button>
+
+            </div>
+
+            <div class="search-bar-container">
+                <input id="searchInput" type="text" class="search-input" placeholder="Search by RCH ID..."/>
                 <button class="btn-primary" onclick="searchByRCHID()">Search</button>
                 <button class="btn-ghost" onclick="resetSearch()">Reset</button>
-              </div>
+            </div>
             </section>
+			
+			<script>
+				function openMotherEntry() {
+				window.location.href = "usermotherdashboard.html";
+				}
+		</script>
 
           <!-- ⭐ ALL STAT CARDS INSIDE ONE SECTION -->
             <section class="card" style="text-align:center;margin-top:20px; padding:20px;">
