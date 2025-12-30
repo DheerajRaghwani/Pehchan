@@ -427,13 +427,23 @@
     flex-direction:column;
   }
 
+  .topbar h2,
+  .topbar h3 {
+    padding-top: 4px;
+    line-height: 1.35;
+  } 
+  body.sidebar-open{
+    overflow:hidden;              /* keep simple */
+  }
+
+
   /* ---- Sidebar (NO LOGIC CHANGE) ---- */
   .sidebar{
     position:fixed;
     top:0;
     left:-100%;
     width:260px;
-    height:100vh;                 /* keep stable */
+    height:100dvh;                 
     z-index:1000;
     background:var(--surface);
     overflow-y:auto;              /* FIX: sidebar scroll */
@@ -495,6 +505,6 @@
     width:100%;
   }
 }
-  
+
 
 
