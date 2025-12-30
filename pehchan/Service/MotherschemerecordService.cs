@@ -3,7 +3,9 @@ using pehchan.Interface;
 using pehchan.Models;
 using pehchan.QueryModel;
 
-public class MotherschemerecordService : IMotherschemerecord
+namespace pehchan.Service
+{
+    public class MotherschemerecordService : IMotherschemerecord
 {
     private readonly PenchanContext _context;
 
@@ -436,4 +438,5 @@ public class MotherschemerecordService : IMotherschemerecord
     {
         return _context.Motherschemerecords.Count();
     }
+}
 }

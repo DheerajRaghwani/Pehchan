@@ -8,9 +8,11 @@ using pehchan.Controllers;
 using pehchan.Interface;
 using pehchan.Models;
 
-[Route("api/[controller]")]
-[ApiController]
-public class MotherschemerecordController : ControllerBase
+namespace pehchan.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class MotherschemerecordController : ControllerBase
 {
     private readonly IMotherschemerecord _service;
     private readonly ILogger<MotherschemerecordController> _logger;
@@ -613,5 +615,5 @@ public class MotherschemerecordController : ControllerBase
         int count = _service.CountAll();
         return Ok(count);
     }
-
+}
 }
