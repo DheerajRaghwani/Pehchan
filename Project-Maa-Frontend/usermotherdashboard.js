@@ -172,7 +172,7 @@ document.getElementById("certificate").addEventListener("change", async (e) => {
 	const map = {
 		mby: "GetAllWithoutMBY",
 		jsy: "GetAllWithoutJSY",
-		jssy: "GetAllWithoutJSSY",
+		 
 		pmmvy: "GetAllWithoutPMMVY",
 		mmjy: "GetAllWithoutMMJY",
 	};
@@ -195,9 +195,6 @@ async function loadmby() {
 }
 async function loadjsy() {
 	await loadCount("jsy", "totaljs");
-}
-async function loadjssy() {
-	await loadCount("jssy", "totaljss");
 }
 async function loadpmmvy() {
 	await loadCount("pmmvy", "totalmv");
@@ -250,9 +247,6 @@ document
 document
 	.getElementById("totaljs")
 	.addEventListener("click", () => filterByScheme("jsy"));
-document
-	.getElementById("totaljss")
-	.addEventListener("click", () => filterByScheme("jssy"));
 document
 	.getElementById("totalmv")
 	.addEventListener("click", () => filterByScheme("pmmvy"));
@@ -432,7 +426,6 @@ document.addEventListener("DOMContentLoaded", () => {
 	loadTotalCount();
 	loadmby();
 	loadjsy();
-	loadjssy();
 	loadpmmvy();
 	loadmmjy();
 });
@@ -448,14 +441,12 @@ async function applySchemeFilter(type, scheme) {
 		Null: {
 			mby: "mby/Null",
 			jsy: "jsy/Null",
-			jssy: "jssy/Null",
 			pmmvy: "pmmvy/Null",
 			mmjy: "mmjy/Null",
 		},
 		No: {
 			mby: "mby/No",
 			jsy: "jsy/No",
-			jssy: "jssy/No",
 			pmmvy: "pmmvy/No",
 			mmjy: "mmjy/No",
 		},
@@ -496,3 +487,4 @@ document
 
 		await applySchemeFilter("No", e.target.value);
 	});
+
